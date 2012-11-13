@@ -1,0 +1,39 @@
+<h1>Hello Students</h1>
+<h3>New Students</h3>
+<%= form_for(Student.new) do |f| %>
+  <%= f.label "Name:" %> <%= f.text_field :name %>
+  </br><%= f.submit %>
+<% end %>
+<h3>Enrolled Students</h3>
+<% @students.each do |student| %>
+  <%= form_for(student) do |f| %>
+    <input name="state_event" value="<%= student.absent? ? 'raises_hand' : 'stays_silent' %>"/ type="hidden">
+    <p>
+      <span>
+        <%= student.name %> is <%= student.absent? ? "absent" : "present" %>
+      <span>
+      <span>
+        <%= f.submit value = (student.absent? ? "Raise Hand" : "Stay Silent") %>
+      </span>
+      <span>
+        <%= link_to 'Destroy', student, :confirm => 'Are you sure?',
+                                        :method => :delete %>
+      </span>
+    </p>    
+  <% end %>    
+<% end %>
+
+<h3>Good Students</h3>
+<div id="good_students">
+  
+</div>
+
+<script type="text/javascript">
+  $.ajax("/students/good_students", {
+    success: function(data) {
+      $.each(data, function() {
+        $("#good_students").append("<div>" + this.name + "</div>")
+      });
+    }
+  });
+</script>
