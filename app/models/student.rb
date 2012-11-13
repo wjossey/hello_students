@@ -11,6 +11,7 @@ class Student < ActiveRecord::Base
     end
   end
 
+  #Return all the students who are in_attendance of the class
   def self.good_students
     Student.where("state = 'in_attendance'")
   end

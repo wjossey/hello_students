@@ -1,5 +1,6 @@
 class StudentsController < ApplicationController
   
+  #Lists ALL of the students
   def index
     @students = Student.all
 
@@ -9,6 +10,7 @@ class StudentsController < ApplicationController
     end
   end
 
+  #Gives me information about one of the students
   def show
     @student = Student.find(params[:id])
 
@@ -18,6 +20,7 @@ class StudentsController < ApplicationController
     end
   end
 
+  #Lets me add new students
   def create
     @student = Student.new
     @student.name = params[:student][:name]
@@ -29,6 +32,7 @@ class StudentsController < ApplicationController
     end
   end
 
+  #Lets me update a student
   def update
     @student = Student.find(params[:id])
     @student.fire_state_event(params[:state_event])
@@ -39,6 +43,7 @@ class StudentsController < ApplicationController
     end
   end
 
+  #Destroys a student
   def destroy
     @student = Student.find(params[:id])
     @student.delete
@@ -49,6 +54,7 @@ class StudentsController < ApplicationController
     end
   end
 
+  #Returns all of the good students in a JSON hash
   def good_students
     @students = Student.good_students
     respond_to do |format|
